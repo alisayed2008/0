@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTok Wrestling Arena</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="logo">⚔️ حلبة المصارعة</div>
+    <div class="subtitle">TikTok LIVE Arena</div>
+  </header>
+
+  <main>
+    <div class="arena-container">
+      <div class="arena-border">
+        <div class="ring-ropes top"></div>
+        <div class="ring-ropes bottom"></div>
+        <div class="ring-ropes left"></div>
+        <div class="ring-ropes right"></div>
+        <div id="ring" class="ring-grid">
+          <!-- fighters injected here -->
+        </div>
+      </div>
+    </div>
+
+    <div class="side-panel">
+      <div class="panel-section">
+        <h2>⏳ قائمة الانتظار</h2>
+        <div id="queue" class="queue-list"></div>
+      </div>
+      <div class="panel-section">
+        <h2>📜 سجل المعارك</h2>
+        <div id="logs" class="log-list"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,382 @@
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Cairo', sans-serif;
+  background: #0a0a0f;
+  color: #e0e0e0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#app {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.logo {
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ff2d55, #ff6b35, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 4px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+main {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+/* ─── ARENA ─── */
+.arena-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.arena-border {
+  position: relative;
+  background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%);
+  border: 3px solid #ff2d55;
+  border-radius: 16px;
+  padding: 30px 20px;
+  width: 100%;
+  max-width: 800px;
+  box-shadow:
+    0 0 40px rgba(255,45,85,0.15),
+    inset 0 0 60px rgba(0,0,0,0.5);
+}
+
+.ring-ropes {
+  position: absolute;
+  background: repeating-linear-gradient(
+    90deg, transparent, transparent 8px, rgba(255,45,85,0.3) 8px, rgba(255,45,85,0.3) 10px
+  );
+}
+.ring-ropes.top { top: 8px; left: 20px; right: 20px; height: 2px; }
+.ring-ropes.bottom { bottom: 8px; left: 20px; right: 20px; height: 2px; }
+.ring-ropes.left { top: 20px; bottom: 20px; left: 8px; width: 2px;
+  background: repeating-linear-gradient(
+    180deg, transparent, transparent 8px, rgba(255,45,85,0.3) 8px, rgba(255,45,85,0.3) 10px
+  );
+}
+.ring-ropes.right { top: 20px; bottom: 20px; right: 8px; width: 2px;
+  background: repeating-linear-gradient(
+    180deg, transparent, transparent 8px, rgba(255,45,85,0.3) 8px, rgba(255,45,85,0.3) 10px
+  );
+}
+
+.ring-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+/* ─── FIGHTER CARD ─── */
+.fighter-slot {
+  background: linear-gradient(145deg, #1e1e30, #141422);
+  border: 2px solid #2a2a40;
+  border-radius: 12px;
+  padding: 10px 8px;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fighter-slot.active {
+  border-color: #ff2d55;
+  box-shadow: 0 0 15px rgba(255,45,85,0.2);
+}
+
+.fighter-slot.dead {
+  opacity: 0.3;
+  border-color: #333;
+}
+
+.fighter-slot.bot {
+  border-color: #ffd700;
+  box-shadow: 0 0 15px rgba(255,215,0,0.15);
+}
+
+.fighter-slot.empty {
+  border-style: dashed;
+  border-color: #222;
+  opacity: 0.3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-text {
+  color: #444;
+  font-size: 0.7rem;
+}
+
+/* 2D Character */
+.character {
+  width: 60px;
+  height: 80px;
+  position: relative;
+  margin: 4px auto;
+}
+
+.char-head {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #ffcc80;
+  margin: 0 auto;
+  position: relative;
+  border: 2px solid #e6a84d;
+}
+
+.char-eyes {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.char-eye {
+  width: 4px;
+  height: 4px;
+  background: #1a1a2e;
+  border-radius: 50%;
+}
+
+.char-body {
+  width: 24px;
+  height: 28px;
+  margin: 2px auto 0;
+  border-radius: 4px 4px 0 0;
+  position: relative;
+}
+
+.char-arms {
+  position: absolute;
+  top: 2px;
+  width: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-between;
+}
+
+.char-arm {
+  width: 6px;
+  height: 20px;
+  border-radius: 3px;
+}
+
+.char-legs {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 0;
+}
+
+.char-leg {
+  width: 8px;
+  height: 16px;
+  border-radius: 0 0 3px 3px;
+}
+
+/* Color schemes */
+.char-color-0 .char-body, .char-color-0 .char-arm { background: #ff2d55; }
+.char-color-0 .char-leg { background: #3a3a5c; }
+.char-color-1 .char-body, .char-color-1 .char-arm { background: #2d7aff; }
+.char-color-1 .char-leg { background: #3a3a5c; }
+.char-color-2 .char-body, .char-color-2 .char-arm { background: #2dff6b; }
+.char-color-2 .char-leg { background: #3a3a5c; }
+.char-color-3 .char-body, .char-color-3 .char-arm { background: #ff6b2d; }
+.char-color-3 .char-leg { background: #3a3a5c; }
+.char-color-4 .char-body, .char-color-4 .char-arm { background: #c02dff; }
+.char-color-4 .char-leg { background: #3a3a5c; }
+.char-color-5 .char-body, .char-color-5 .char-arm { background: #ff2dab; }
+.char-color-5 .char-leg { background: #3a3a5c; }
+.char-color-6 .char-body, .char-color-6 .char-arm { background: #2dd4ff; }
+.char-color-6 .char-leg { background: #3a3a5c; }
+.char-color-7 .char-body, .char-color-7 .char-arm { background: #ffd700; }
+.char-color-7 .char-leg { background: #3a3a5c; }
+.char-color-8 .char-body, .char-color-8 .char-arm { background: #ff4757; }
+.char-color-8 .char-leg { background: #3a3a5c; }
+.char-color-9 .char-body, .char-color-9 .char-arm { background: #7bed9f; }
+.char-color-9 .char-leg { background: #3a3a5c; }
+
+.bot-char .char-head { background: #ffd700; border-color: #cc9900; }
+
+/* Animation */
+@keyframes idle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes attack-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px) rotate(-3deg); }
+  75% { transform: translateX(5px) rotate(3deg); }
+}
+
+.character { animation: idle-bounce 1.2s ease-in-out infinite; }
+.character.attacking { animation: attack-shake 0.3s ease-in-out; }
+
+.fighter-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.fighter-name.bot-name { color: #ffd700; }
+
+/* HP Bar */
+.hp-bar-container {
+  width: 100%;
+  height: 8px;
+  background: #1a1a2e;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 4px 0;
+  border: 1px solid #2a2a40;
+}
+
+.hp-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease, background 0.4s ease;
+}
+
+.hp-text {
+  font-size: 0.65rem;
+  color: #aaa;
+}
+
+.fighter-stats {
+  display: flex;
+  gap: 8px;
+  font-size: 0.6rem;
+  color: #777;
+  margin-top: 2px;
+}
+
+.fighter-stats span { display: flex; align-items: center; gap: 2px; }
+
+.slot-number {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  font-size: 0.55rem;
+  color: #444;
+  font-weight: 700;
+}
+
+/* ─── SIDE PANEL ─── */
+.side-panel {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel-section {
+  background: linear-gradient(145deg, #141422, #0f0f1a);
+  border: 1px solid #1e1e30;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.panel-section h2 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #ff2d55;
+}
+
+.queue-list {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.queue-item {
+  padding: 6px 10px;
+  background: #1a1a2e;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.queue-pos {
+  color: #ff6b35;
+  font-weight: 700;
+  min-width: 20px;
+}
+
+.log-list {
+  max-height: 400px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.log-entry {
+  padding: 6px 10px;
+  background: #111120;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  border-right: 3px solid #ff2d55;
+  color: #ccc;
+}
+
+.log-time {
+  font-size: 0.6rem;
+  color: #555;
+  margin-left: 6px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #ff2d55; border-radius: 2px; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  main { flex-direction: column; }
+  .side-panel { width: 100%; }
+  .ring-grid { grid-template-columns: repeat(5, 1fr); gap: 8px; }
+}
+
+@media (max-width: 600px) {
+  .ring-grid { grid-template-columns: repeat(3, 1fr); }
+  .logo { font-size: 1.8rem; }
+}
